@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mini calendar</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="hero">
+        <div class="calendar">
+            <div class="left">
+                <p id="date">01</p>
+                <p id="day">Sunday</p>
+            </div>
+            <div class="right">
+                <p id="month">January</p>
+                <p id="year">2024</p>
+                
+            </div>
+        </div>
+        <div class="time-box">
+            <p id="time">00:00:00</p>
+        </div>
+    </div>
+    <script>
+        const date = document.getElementById("date");
+        const day = document.getElementById("day");
+        const month = document.getElementById("month");
+        const year = document.getElementById("year");
+        const time1 = document.getElementById("time"); // First time
+        const time2 = document.getElementById("time"); // Second time
+
+        const today = new Date();
+        const weekDays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+        const allMonths = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+        date.innerHTML = (today.getDate() < 10 ? "0" : "") + today.getDate();
+        day.innerHTML = weekDays[today.getDay()];
+        month.innerHTML = allMonths[today.getMonth()];
+        year.innerHTML = today.getFullYear();
+        
+        function updateTime() {
+            const now = new Date();
+            const hours = now.getHours() % 12 || 12; // Convert hours to 12-hour format
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            const period = now.getHours() < 12 ? 'AM' : 'PM'; // Determine AM/PM
+
+            time1.innerHTML = `${hours}:${minutes}:${seconds} ${period}`;
+            time2.innerHTML = `${hours}:${minutes}:${seconds} ${period}`;
+        }
+
+        updateTime();
+        setInterval(updateTime, 1000);
+    </script>
+</body>
+</html>
